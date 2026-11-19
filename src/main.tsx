@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { ConfigProvider } from 'antd'
+import { App as AntApp, ConfigProvider } from 'antd'
 import ru_RU from 'antd/locale/ru_RU'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ru'
@@ -13,9 +13,11 @@ dayjs.locale('ru')
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ConfigProvider locale={ru_RU} theme={appTheme}>
-      <HashRouter>
-        <App />
-      </HashRouter>
+      <AntApp>
+        <HashRouter>
+          <App />
+        </HashRouter>
+      </AntApp>
     </ConfigProvider>
   </StrictMode>,
 )

@@ -1,4 +1,4 @@
-import { Empty, List, Tag, Typography, theme } from 'antd'
+import { Empty, Flex, Table, Tag, Typography, theme } from 'antd'
 import { Link, Route, Routes } from 'react-router-dom'
 import { prototypes } from './prototypes/registry'
 
@@ -13,17 +13,26 @@ function Home() {
       {prototypes.length === 0 ? (
         <Empty description="Прототипов пока нет" />
       ) : (
-        <List
-          bordered
+        <Table
+          rowKey="slug"
+          pagination={false}
           dataSource={prototypes}
-          renderItem={(p) => (
-            <List.Item extra={<Tag color={statusColor[p.status]}>{statusLabel[p.status]}</Tag>}>
-              <List.Item.Meta
-                title={<Link to={`/${p.slug}`}>{p.title}</Link>}
-                description={p.description}
-              />
-            </List.Item>
-          )}
+          columns={[
+            {
+              title: 'Прототип',
+              render: (_, p) => (
+                <Flex vertical>
+                  <Link to={`/${p.slug}`}>{p.title}</Link>
+                  <Typography.Text type="secondary">{p.description}</Typography.Text>
+                </Flex>
+              ),
+            },
+            {
+              title: 'Статус',
+              width: 160,
+              render: (_, p) => <Tag color={statusColor[p.status]}>{statusLabel[p.status]}</Tag>,
+            },
+          ]}
         />
       )}
     </div>
